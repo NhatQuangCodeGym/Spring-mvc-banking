@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer History</title>
+    <th:block th:replace="/layout/head :: head" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-5">
+                    <h1>Transfer History</h1>
+                </div>
+                <div class="col-sm-7">
+                    <a href="/customers" class="btn btn-outline-light">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span>Customer list</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Sender ID</th>
+                    <th scope="col">Sender Name</th>
+                    <th scope="col">Recipient ID</th>
+                    <th scope="col">Recipient Name</th>
+                    <th scope="col" class="text-end">Transfer Amount ($)</th>
+                    <th scope="col" class="text-center">Fees (%)</th>
+                    <th scope="col" class="text-end">Fees Amount ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="transfer: ${transferHistories}">
+                    <tr>
+                        <td th:text="${transfer.getId()}"></td>
+                        <td th:text="${transfer.getSenderId()}"></td>
+                        <td th:text="${transfer.getSenderName()}"></td>
+                        <td th:text="${transfer.getRecipientId()}"></td>
+                        <td th:text="${transfer.getRecipientName()}"></td>
+                        <td th:text="${transfer.getTransferAmount()}"></td>
+                        <td th:text="${transfer.getFees()}"></td>
+                        <td th:text="${transfer.getFeesAmount()}"></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

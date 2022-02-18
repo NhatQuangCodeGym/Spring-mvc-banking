@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer</title>
+    <th:block th:replace="/layout/head :: head" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-5">
+                    <h1>Transfer money</h1>
+                </div>
+                <div class="col-sm-7">
+                    <a href="/customers" class="btn btn-outline-light">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span>Customer list</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <form id="frmTransfer" method="POST" th:object="${transfer}">
+                <div class="row mt-3">
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Sender ID</label>
+                        <input type="text" class="form-control" th:value="${sender.getId()}" readonly>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Sender Name</label>
+                        <input type="text" class="form-control" th:value="${sender.getFullName()}" readonly>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Sender Email</label>
+                        <input type="text" class="form-control" th:value="${sender.getEmail()}" readonly>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Sender Balance</label>
+                        <input type="text" class="form-control" th:value="${sender.getBalance()}" readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Recipient Name</label>
+                        <select id="recipient_id" class="form-select" name="recipient">
+                            <th:block th:each="recipient : ${recipients}">
+                                <option th:value="${recipient.getId()}" th:text="'(' + ${recipient.getId()} + ') ' +  ${recipient.getFullName()}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Transfer Amount ($)</label>
+                        <input type="text" class="form-control" id="transferAmount" name="transferAmount">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Fees (%)</label>
+                        <input type="text" class="form-control" id="fees" value="10" readonly>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">Total amount of transaction ($)</label>
+                        <input type="text" class="form-control" id="transactionAmount" readonly>
+                    </div>
+                </div>
+                <button type="submit" id="btnTransfer" class="btn btn-outline-primary">
+                    Transfer
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // document.getElementById("transferAmount").addEventListener("change", function () {
+        //     let transferAmount = parseInt(document.getElementById("transferAmount").value);
+        //     let fees = 10;
+        //     let feesAmount = transferAmount * fees / 100;
+        //     let transactionAmount = transferAmount + feesAmount;
+        //     document.getElementById("transactionAmount").value = transactionAmount;
+        // });
+
+        $("#transferAmount").on("change", function () {
+
+            if ($(this).val().length > 0) {
+                let transferAmount = parseInt($(this).val());
+                let fees = 10;
+                let feesAmount = transferAmount * fees / 100;
+                let transactionAmount = transferAmount + feesAmount;
+                $("#transactionAmount").val(transactionAmount);
+            }
+            else {
+                $("#transactionAmount").val(0);
+            }
+        })
+
+    </script>
+
+
+
+</body>
+</html>

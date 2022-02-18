@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit</title>
+    <th:block th:replace="/layout/head :: head" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-5">
+                    <h1>Deposit money</h1>
+                </div>
+                <div class="col-sm-7">
+                    <a href="/customers" class="btn btn-outline-light">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span>Customer list</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <form id="frmDeposit" th:object="${deposit}" method="POST">
+                <div class="row mt-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="customerId" class="form-label fw-bold">Customer ID</label>
+                        <input type="text" class="form-control" id="customerId" th:value="${customer.id}" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Full Name</label>
+                        <input type="text" class="form-control" th:value="${customer.fullName}" readonly>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Current balance ($)</label>
+                        <input type="tel" class="form-control" th:value="${customer.balance}" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Transaction Amount ($)</label>
+                        <input type="text" class="form-control" th:field="*{transactionAmount}">
+                    </div>
+                </div>
+                <button type="submit" id="btnDeposit" class="btn btn-outline-success">
+                    Deposit
+                </button>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
